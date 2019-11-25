@@ -1,4 +1,7 @@
-require "pry"
+require 'nokogiri'
+require 'open-uri'
+require 'pry'
+require 'action_view'
 
 class CLI
 
