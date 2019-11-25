@@ -132,7 +132,7 @@ class WorldsBestRestaurants::Restaurant
   end
 end
 
-class Scraper
+class WorldsBestRestaurants::Scraper
 
   def get_page
     Nokogiri::HTML(open("https://www.theworlds50best.com/list/1-50-winners"))
