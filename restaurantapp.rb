@@ -1,7 +1,7 @@
-class WorldsBestRestaurants::CLI
+class CLI
 
   def call
-    WorldsBestRestaurants::Scraper.new.make_restaurants
+    Scraper.new.make_restaurants
     puts "Welcome to the 50 Best Restaurants in the World"
     start
   end
@@ -17,7 +17,7 @@ class WorldsBestRestaurants::CLI
     puts "What restaurant would you like more information on?"
     input = gets.strip
 
-    restaurant = WorldsBestRestaurants::Restaurant.find(input.to_i)
+    restaurant = Restaurant.find(input.to_i)
 
     print_restaurant(restaurant)
 
@@ -59,14 +59,14 @@ class WorldsBestRestaurants::CLI
     puts ""
     puts "---------- Restaurants #{from_number} - #{from_number+9} ----------"
     puts ""
-    WorldsBestRestaurants::Restaurant.all[from_number-1, 10].each.with_index(from_number) do |restaurant, index|
+    Restaurant.all[from_number-1, 10].each.with_index(from_number) do |restaurant, index|
       puts "#{index}. #{restaurant.name} - #{restaurant.location}"
     end
   end
 
 end
 
-class WorldsBestRestaurants::Restaurant
+class Restaurant
 
   attr_accessor :name, :position, :location, :url, :head_chef, :website_url, :food_style, :best_dish, :contact, :description
 
@@ -132,7 +132,7 @@ class WorldsBestRestaurants::Restaurant
   end
 end
 
-class WorldsBestRestaurants::Scraper
+class Scraper
 
   def get_page
     Nokogiri::HTML(open("https://www.theworlds50best.com/list/1-50-winners"))
@@ -144,7 +144,7 @@ class WorldsBestRestaurants::Scraper
 
   def make_restaurants
     scrape_restaurants_index.each do |r|
-      WorldsBestRestaurants::Restaurant.new_from_index_page(r)
+      Restaurant.new_from_index_page(r)
     end
   end
 end
